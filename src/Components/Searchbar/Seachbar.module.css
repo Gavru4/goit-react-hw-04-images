@@ -1,0 +1,17 @@
+.searchbar {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: blue;
+  text-align: center;
+}
+.button {
+  margin-left: 5px;
+  background-color: aqua;
+  border-radius: 10px;
+  padding: 5px;
+}
+.input {
+  background-color: aqua;
+  border-radius: 10px;
+  padding: 5px;
+}
