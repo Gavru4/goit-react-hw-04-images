@@ -5,14 +5,11 @@ import { Component, useEffect } from "react";
 const Modal = ({ onModalClose, imageURL }) => {
   useEffect(() => {
     window.addEventListener("keydown", onModalClose);
-  }, []);
 
-  // componentDidMount() {
-  //   window.addEventListener("keydown", onModalClose);
-  // }
-  // componentWillUnmount() {
-  //   window.removeEventListener("keydown", onModalClose);
-  // }
+    return () => {
+      window.removeEventListener("keydown", onModalClose);
+    };
+  }, []);
 
   return (
     <div

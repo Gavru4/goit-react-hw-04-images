@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
 import LoadMoreBtn from "./Components/Button/Button";
@@ -35,9 +35,23 @@ const App = () => {
     setRequest(requestValue);
     setPage(1);
   };
+  const scrollRef = useRef(null);
+
   const onLoadMore = (e) => {
+    scrollRef.current = document.body.scrollHeight;
+
     setPage((prev) => prev + 1);
   };
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      window.scrollTo({
+        top: scrollRef.current,
+        behavior: "smooth",
+      });
+      clearTimeout(id);
+    }, 100);
+  }, [images]);
 
   const onModalOpen = (imageURL) => {
     setModalOpen(true);
