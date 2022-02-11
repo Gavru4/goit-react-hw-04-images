@@ -1,36 +1,36 @@
 import s from "./Modal.module.css";
 import PropTypes from "prop-types";
-import { Component } from "react";
+import { Component, useEffect } from "react";
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener("keydown", this.props.onModalClose);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.props.onModalClose);
-  }
+const Modal = ({ onModalClose, imageURL }) => {
+  useEffect(() => {
+    window.addEventListener("keydown", onModalClose);
+  }, []);
 
-  render() {
-    const { imageURL, onModalClose } = this.props;
-    return (
-      <div
-        id="overlay"
-        className={s.overlay}
-        onClick={(e) => {
-          onModalClose(e.target.id);
-        }}
-      >
-        <div className={s.modal}>
-          <img className={s.image} src={imageURL} alt="" />
-        </div>
+  // componentDidMount() {
+  //   window.addEventListener("keydown", onModalClose);
+  // }
+  // componentWillUnmount() {
+  //   window.removeEventListener("keydown", onModalClose);
+  // }
+
+  return (
+    <div
+      id="overlay"
+      className={s.overlay}
+      onClick={(e) => {
+        onModalClose(e.target.id);
+      }}
+    >
+      <div className={s.modal}>
+        <img className={s.image} src={imageURL} alt="" />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 export default Modal;
 
 Modal.propTypes = {
   onModalClose: PropTypes.func.isRequired,
   imageURL: PropTypes.string.isRequired,
-  // onKeyPress: PropTypes.func.isRequired,
 };

@@ -1,49 +1,44 @@
-import { Component } from "react";
+import { useState } from "react";
 import s from "./Seachbar.module.css";
 import PropTypes from "prop-types";
 
-class Searchbar extends Component {
-  state = {
-    request: "",
+const Searchbar = ({ onSubmit }) => {
+  const [request, setRequest] = useState("");
+
+  const handleNameChange = (e) => {
+    setRequest(e.target.value.toLowerCase());
   };
 
-  handleNameChange = (e) => {
-    this.setState({ request: e.target.value.toLowerCase() });
-  };
-
-  onHandleSubmit = (e) => {
-    const requestValue = this.state.request;
+  const onHandleSubmit = (e) => {
+    const requestValue = request;
     e.preventDefault();
 
     if (requestValue.trim() === "") {
       return alert("Entre name");
     }
 
-    this.props.onSubmit(requestValue);
-    this.setState({ request: "" });
+    onSubmit(requestValue);
+    setRequest("");
   };
-
-  render() {
-    return (
-      <header className={s.searchbar}>
-        <form className={s.form} onSubmit={this.onHandleSubmit}>
-          <input
-            onChange={this.handleNameChange}
-            className={s.input}
-            type="text"
-            value={this.state.request}
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-          <button type="submit" className={s.button}>
-            <span className="button-label">Search</span>
-          </button>
-        </form>
-      </header>
-    );
-  }
-}
+  return (
+    <header className={s.searchbar}>
+      <form className={s.form} onSubmit={onHandleSubmit}>
+        <input
+          onChange={handleNameChange}
+          className={s.input}
+          type="text"
+          value={request}
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+        <button type="submit" className={s.button}>
+          <span className="button-label">Search</span>
+        </button>
+      </form>
+    </header>
+  );
+};
 
 export default Searchbar;
 
